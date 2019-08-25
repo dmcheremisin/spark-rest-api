@@ -10,4 +10,12 @@ public class ClassExtractor {
     public static <T> T getClassFromRequest(Request req, Class<T> objectclass) {
         return gson.fromJson(req.body(), objectclass);
     }
+
+    public static <T> T getClassFromString(String body, Class<T> objectclass) {
+        return gson.fromJson(body, objectclass);
+    }
+
+    public static String classToJson(Object model) {
+        return gson.toJson(model);
+    }
 }

@@ -5,8 +5,11 @@ import info.cheremisin.rest.api.db.dao.impl.UserDaoImpl;
 import info.cheremisin.rest.api.db.model.impl.User;
 import info.cheremisin.rest.api.web.transformers.JsonTransformer;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.jetty.http.HttpStatus;
 
 import static info.cheremisin.rest.api.web.common.ClassExtractor.getClassFromRequest;
+import static info.cheremisin.rest.api.web.common.RequestParamsExtractor.getIdFromRequest;
+import static org.eclipse.jetty.http.HttpStatus.NO_CONTENT_204;
 import static spark.Spark.*;
 
 @Slf4j
@@ -19,26 +22,27 @@ public class UserRouts {
     public static void importUserRouts() {
         path("/api/v1", () -> {
             get("/users", (req, res) -> userDao.getAll(), JSON_TRANSFORMER);
-            get("/users/:id", (req, res) -> {
-                String id = req.params("id");
-                return userDao.getById(Integer.parseInt(id));
-            }, JSON_TRANSFORMER);
+            get("/users/:id", (req, res) -> userDao.getById(getIdFromRequest(req)), JSON_TRANSFORMER);
 
             post("/users", (req, res) -> {
                 User user = getClassFromRequest(req, User.class);
+                res.status(HttpStatus.CREATED_201);
                 return userDao.createUser(user);
             }, JSON_TRANSFORMER);
 
-            put("/users", (req, res) -> {
+            put("/users/:id", (req, res) -> {
                 User user = getClassFromRequest(req, User.class);
+                user.setId(getIdFromRequest(req));
                 return userDao.updateUser(user);
             }, JSON_TRANSFORMER);
 
             delete("/users/:id", (req, res) -> {
-                String id = req.params("id");
-                userDao.deleteUser(Integer.parseInt(id));
-                return null;
+                userDao.deleteUser(getIdFromRequest(req));
+                res.status(NO_CONTENT_204);
+                return "";
             });
         });
     }
+
+
 }

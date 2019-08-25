@@ -3,13 +3,13 @@ package info.cheremisin.rest.api.web.transformers;
 import com.google.gson.Gson;
 import spark.ResponseTransformer;
 
-public class JsonTransformer implements ResponseTransformer {
+import static info.cheremisin.rest.api.web.common.ClassExtractor.classToJson;
 
-    private Gson gson = new Gson();
+public class JsonTransformer implements ResponseTransformer {
 
     @Override
     public String render(Object model) {
-        return gson.toJson(model);
+        return classToJson(model);
     }
 
 }

@@ -9,9 +9,9 @@ import static info.cheremisin.rest.api.web.routs.UserRouts.importUserRouts;
 import static spark.Spark.*;
 
 
-public class Main {
+public class RestApiApp {
 
-    private static final Logger log = LoggerFactory.getLogger(Main.class);
+    private static final Logger log = LoggerFactory.getLogger(RestApiApp.class);
 
     public static void main(String[] args) {
         DbInitializer stubInitializer = new DbInitializer();
