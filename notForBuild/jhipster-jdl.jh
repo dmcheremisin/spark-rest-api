@@ -1,0 +1,34 @@
+entity User {
+	id Integer
+	firstName String
+    lastName String
+    birthDate Date
+    accounts Account
+}
+
+entity Account {
+	id Integer
+    accountBalance Double
+}
+
+entity Transactions {
+	id Integer
+	accountDonor Integer
+    accountAcceptor Integer
+    amount Double
+}
+
+relationship OneToMany {
+	User{accounts} to Account
+}
+
+relationship ManyToMany {
+	Transactions{donor} to Account{id}
+}
+
+relationship ManyToMany {
+	Transactions{acceptor} to Account{id}
+}
+
+    
+
