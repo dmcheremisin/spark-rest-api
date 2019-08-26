@@ -2,6 +2,7 @@ package info.cheremisin.rest.api.db.dao.impl;
 
 import info.cheremisin.rest.api.db.dao.BaseDaoTest;
 import info.cheremisin.rest.api.db.dao.UserDao;
+import info.cheremisin.rest.api.db.exceptions.UserNotFoundException;
 import info.cheremisin.rest.api.db.model.PaginationParams;
 import info.cheremisin.rest.api.db.model.impl.User;
 import org.junit.Test;
@@ -62,13 +63,12 @@ public class UserDaoImplTest extends BaseDaoTest {
         assertEquals(STARK, updatedUser.getLastName());
     }
 
-    @Test
+    @Test(expected = UserNotFoundException.class)
     public void deleteUser() {
         User user = User.builder().firstName(ROB).lastName(STARK).build();
         User createdUser = userDao.createUser(user);
         userDao.deleteUser(createdUser.getId());
         User deletedUser = userDao.getById(createdUser.getId());
-        assertNull(deletedUser);
     }
 
 }

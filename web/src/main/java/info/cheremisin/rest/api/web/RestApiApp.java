@@ -2,6 +2,8 @@ package info.cheremisin.rest.api.web;
 
 import info.cheremisin.rest.api.db.connection.ConnectionPool;
 import info.cheremisin.rest.api.db.connection.DbInitializer;
+import info.cheremisin.rest.api.db.exceptions.UserNotFoundException;
+import org.eclipse.jetty.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,10 +24,17 @@ public class RestApiApp {
 
         after((request, response) -> response.type("application/json; charset=UTF-8"));
 
-        notFound((req, res) -> "Not found customer message");
+        notFound((req, res) -> res.body() != null ? res.body() : "Something went wrong");
+
+        exception(UserNotFoundException.class, (e, req, res) -> {
+            log.error(e.getMessage());
+            res.body(e.getMessage());
+            res.status(HttpStatus.NOT_FOUND_404);
+        });
         exception(Exception.class, (e, req, res) -> {
             log.error(e.getMessage());
         });
+
 
         ConnectionPool.showDb();
     }
