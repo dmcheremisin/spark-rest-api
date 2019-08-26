@@ -1,12 +1,13 @@
 package info.cheremisin.rest.api.db.dao;
 
+import info.cheremisin.rest.api.db.model.PaginationParams;
 import info.cheremisin.rest.api.db.model.impl.User;
 
 import java.util.List;
 
 public interface UserDao {
 
-    List<User> getAll();
+    List<User> getAll(PaginationParams pagination);
 
     User getById(Integer id);
 

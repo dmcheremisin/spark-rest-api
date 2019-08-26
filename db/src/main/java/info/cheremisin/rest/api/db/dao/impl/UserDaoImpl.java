@@ -1,6 +1,7 @@
 package info.cheremisin.rest.api.db.dao.impl;
 
 import info.cheremisin.rest.api.db.dao.UserDao;
+import info.cheremisin.rest.api.db.model.PaginationParams;
 import info.cheremisin.rest.api.db.model.impl.Account;
 import info.cheremisin.rest.api.db.model.impl.User;
 import org.sql2o.Connection;
@@ -34,9 +35,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getAll() {
+    public List<User> getAll(PaginationParams pagination) {
         try(Connection connection = getConnection()) {
-            List<User> users = connection.createQuery("SELECT * FROM users")
+            String sql = "SELECT * FROM users LIMIT :limit OFFSET :offset ";
+            List<User> users = connection.createQuery(sql)
+                    .bind(pagination)
                     .executeAndFetch(User.class);
             users.forEach(u -> u.setAccounts(getUserAccounts(connection, u)));
             return users;
@@ -58,7 +61,7 @@ public class UserDaoImpl implements UserDao {
     public User createUser(User user) {
         user.setId(null);
         try(Connection connection = getConnection()) {
-            Integer key = (Integer) connection.createQuery("INSERT INTO USERS VALUES (:id, :firstName, :lastName);", true)
+            Integer key = (Integer) connection.createQuery("INSERT INTO users VALUES (:id, :firstName, :lastName);", true)
                     .bind(user)
                     .executeUpdate()
                     .getKey();

@@ -3,6 +3,8 @@ package info.cheremisin.rest.api.web.routs;
 import info.cheremisin.rest.api.db.dao.UserDao;
 import info.cheremisin.rest.api.db.dao.impl.UserDaoImpl;
 import info.cheremisin.rest.api.db.model.impl.User;
+import info.cheremisin.rest.api.web.common.RequestParamsExtractor;
+import info.cheremisin.rest.api.db.model.PaginationParams;
 import info.cheremisin.rest.api.web.transformers.JsonTransformer;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.http.HttpStatus;
@@ -21,7 +23,11 @@ public class UserRouts {
 
     public static void importUserRouts() {
         path("/api/v1", () -> {
-            get("/users", (req, res) -> userDao.getAll(), JSON_TRANSFORMER);
+            get("/users", (req, res) -> {
+                PaginationParams pagination = RequestParamsExtractor.getPaginationParamsFromRequest(req);
+                return userDao.getAll(pagination);
+            }, JSON_TRANSFORMER);
+
             get("/users/:id", (req, res) -> userDao.getById(getIdFromRequest(req)), JSON_TRANSFORMER);
 
             post("/users", (req, res) -> {

@@ -10,8 +10,7 @@ import spark.servlet.SparkApplication;
 
 import java.util.List;
 
-import static info.cheremisin.rest.api.web.common.ClassExtractor.classToJson;
-import static info.cheremisin.rest.api.web.common.ClassExtractor.getClassFromString;
+import static info.cheremisin.rest.api.web.common.ClassExtractor.*;
 import static org.eclipse.jetty.http.HttpStatus.*;
 import static org.junit.Assert.*;
 
@@ -36,8 +35,33 @@ public class UserRoutsTest {
         assertEquals(httpResponse.code(), OK_200);
 
         String body = new String(httpResponse.body());
-        List<User> classFromString = getClassFromString(body, List.class);
-        assertTrue(classFromString.size() == 12);
+        List<User> list = getListOfClass(body, User.class);
+        assertTrue(list.size() == 10);
+
+        User user = list.get(0);
+        assertNotNull(user);
+        assertEquals(1, (int) user.getId());
+        assertEquals("Tyrion", user.getFirstName());
+        assertEquals("Lannister", user.getLastName());
+    }
+
+    @Test
+    public void testGetUsersLimitAndOffsetTest() throws HttpClientException {
+        GetMethod get = testServer.get("/api/v1/users?limit=5&offset=2", false);
+        get.addHeader("Accept", "application/json");
+        HttpResponse httpResponse = testServer.execute(get);
+
+        assertEquals(httpResponse.code(), OK_200);
+
+        String body = new String(httpResponse.body());
+        List<User> list = getListOfClass(body, User.class);
+        assertTrue(list.size() == 5);
+
+        User user = list.get(0);
+        assertNotNull(user);
+        assertEquals(3, (int) user.getId());
+        assertEquals("Jaime", user.getFirstName());
+        assertEquals("Lannister", user.getLastName());
     }
 
     @Test
