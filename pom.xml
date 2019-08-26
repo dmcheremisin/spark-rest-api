@@ -17,6 +17,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <logback-core.version>1.2.2</logback-core.version>
+        <powermock.version>2.0.2</powermock.version>
     </properties>
 
     <dependencyManagement>
@@ -74,6 +75,17 @@
                 <groupId>com.despegar</groupId>
                 <artifactId>spark-test</artifactId>
                 <version>1.1.8</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>1.9.5</version>
+                <scope>test</scope>
             </dependency>
 
             <!--Lombok-->

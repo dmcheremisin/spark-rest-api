@@ -28,12 +28,6 @@ public class UserDaoImpl implements UserDao {
         return userDao;
     }
 
-    private List<Account> getUserAccounts(Connection connection, User u) {
-        return connection.createQuery("SELECT * FROM accounts WHERE user_id=:id")
-                .addParameter("id", u.getId())
-                .executeAndFetch(Account.class);
-    }
-
     @Override
     public List<User> getAll(PaginationParams pagination) {
         try(Connection connection = getConnection()) {
@@ -44,6 +38,12 @@ public class UserDaoImpl implements UserDao {
             users.forEach(u -> u.setAccounts(getUserAccounts(connection, u)));
             return users;
         }
+    }
+
+    private List<Account> getUserAccounts(Connection connection, User u) {
+        return connection.createQuery("SELECT * FROM accounts WHERE user_id=:id")
+                .addParameter("id", u.getId())
+                .executeAndFetch(Account.class);
     }
 
     @Override
