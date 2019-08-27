@@ -55,8 +55,8 @@ public class TransactionDaoImplTest extends BaseDaoTest {
 
     @Test
     public void createTransaction() {
-        BigDecimal amount = new BigDecimal("40.05");
-        Transaction transaction = Transaction.builder().accountDonor(6).accountAcceptor(5).amount(amount).build();
+        BigDecimal amount = new BigDecimal("24.10");
+        Transaction transaction = Transaction.builder().accountDonor(8).accountAcceptor(14).amount(amount).build();
         Transaction createdTransaction = transactionDao.createTransaction(transaction);
 
         assertNotNull(createdTransaction);
@@ -66,11 +66,11 @@ public class TransactionDaoImplTest extends BaseDaoTest {
 
         Account acceptor = accountDao.getById(createdTransaction.getAccountAcceptor());
         assertEquals(createdTransaction.getAccountAcceptor(), acceptor.getId());
-        assertEquals(new BigDecimal("117.03"), acceptor.getBalance());
+        assertEquals(new BigDecimal("36.33"), acceptor.getBalance());
 
         Account donor = accountDao.getById(createdTransaction.getAccountDonor());
         assertEquals(createdTransaction.getAccountDonor(), donor.getId());
-        assertEquals(new BigDecimal("110.04"), donor.getBalance());
+        assertEquals(new BigDecimal("110.11"), donor.getBalance());
     }
 
     @Test(expected = Sql2oException.class)
