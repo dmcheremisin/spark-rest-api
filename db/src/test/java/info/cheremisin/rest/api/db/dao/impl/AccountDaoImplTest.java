@@ -25,7 +25,7 @@ public class AccountDaoImplTest extends BaseDaoTest {
 
     @Before
     public void setUp() throws Exception {
-        account = Account.builder().id(12).userId(2).balance(new BigDecimal("100.5")).build();
+        account = Account.builder().id(12).userId(2).balance(new BigDecimal("100.51")).build();
     }
 
     @Test
