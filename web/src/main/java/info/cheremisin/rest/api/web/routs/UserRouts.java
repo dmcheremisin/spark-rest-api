@@ -10,6 +10,7 @@ import info.cheremisin.rest.api.web.transformers.JsonTransformer;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.http.HttpStatus;
 
+import static info.cheremisin.rest.api.web.RestApiApp.API_ROOT_PATH;
 import static info.cheremisin.rest.api.web.common.ClassExtractor.getClassFromRequest;
 import static info.cheremisin.rest.api.web.common.RequestParamsExtractor.getIdFromRequest;
 import static org.eclipse.jetty.http.HttpStatus.NO_CONTENT_204;
@@ -23,7 +24,7 @@ public class UserRouts {
     private static final UserService userService = new UserServiceImpl(UserDaoImpl.getInstance());
 
     public static void importUserRouts() {
-        path("/api/v1", () -> {
+        path(API_ROOT_PATH, () -> {
             get("/users", (req, res) -> {
                 PaginationParams pagination = RequestParamsExtractor.getPaginationParamsFromRequest(req);
                 return userService.getAll(pagination);

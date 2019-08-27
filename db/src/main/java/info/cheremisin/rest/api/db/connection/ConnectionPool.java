@@ -2,16 +2,12 @@ package info.cheremisin.rest.api.db.connection;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import info.cheremisin.rest.api.db.model.impl.Account;
-import info.cheremisin.rest.api.db.model.impl.Transaction;
-import info.cheremisin.rest.api.db.model.impl.User;
 import lombok.extern.slf4j.Slf4j;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -64,20 +60,6 @@ public class ConnectionPool {
 
     public static Sql2o getSql2o() {
         return getConnectionPool().sql2o;
-    }
-
-    public static void showDb(){
-        Connection open = getConnection();
-        List<User> users = open.createQuery("select * from users").executeAndFetch(User.class);
-        users.forEach(u -> System.out.println(u.getId() + " " + u.getFirstName() + " " + u.getLastName()));
-
-        open = getConnectionPool().sql2o.open();
-        List<Account> accounts = open.createQuery("select * from accounts").executeAndFetch(Account.class);
-        accounts.forEach(a -> System.out.println(a.getUserId() + " " + a.getBalance()));
-
-        open = getConnectionPool().sql2o.open();
-        List<Transaction> transaction = open.createQuery("select * from transactions").executeAndFetch(Transaction.class);
-        transaction.forEach(t -> System.out.println(t.getAccountDonor() + " " + t.getAccountAcceptor()+ " " + t.getAmount()));
     }
 
 }

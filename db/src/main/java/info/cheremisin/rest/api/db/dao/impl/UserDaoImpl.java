@@ -52,7 +52,7 @@ public class UserDaoImpl implements UserDao {
                     .executeAndFetch(User.class);
             users.forEach(u -> u.setAccounts(getUserAccounts(connection, u)));
             if(users.size() == 0) {
-                throw new UserNotFoundException("User not found with id = " + id);
+                throw new UserNotFoundException(id);
             }
             return users.get(0);
         }
@@ -86,6 +86,16 @@ public class UserDaoImpl implements UserDao {
             connection.createQuery("DELETE FROM users WHERE id=:id")
                     .addParameter("id", id)
                     .executeUpdate();
+        }
+    }
+
+    @Override
+    public boolean checkUserExists(Integer id) {
+        try(Connection connection = getConnection()) {
+            List<User> users = connection.createQuery("SELECT id FROM users WHERE id=:user_id")
+                    .addParameter("user_id", id)
+                    .executeAndFetch(User.class);
+            return users.size() != 0;
         }
     }
 }

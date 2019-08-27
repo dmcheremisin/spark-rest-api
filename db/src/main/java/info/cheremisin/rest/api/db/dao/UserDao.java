@@ -17,4 +17,6 @@ public interface UserDao {
 
     void deleteUser(Integer id);
 
+    boolean checkUserExists(Integer id);
+
 }

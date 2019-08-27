@@ -2,6 +2,7 @@ package info.cheremisin.rest.api.db.dao.impl;
 
 import info.cheremisin.rest.api.db.dao.AccountDao;
 import info.cheremisin.rest.api.db.dao.BaseDaoTest;
+import info.cheremisin.rest.api.db.exceptions.AccountNotFoundException;
 import info.cheremisin.rest.api.db.model.PaginationParams;
 import info.cheremisin.rest.api.db.model.impl.Account;
 import org.junit.Before;
@@ -12,7 +13,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 public class AccountDaoImplTest extends BaseDaoTest {
 
@@ -66,11 +66,10 @@ public class AccountDaoImplTest extends BaseDaoTest {
         assertEquals(account.getBalance(), updatedAccount.getBalance());
     }
 
-    @Test
+    @Test(expected = AccountNotFoundException.class)
     public void deleteAccount() {
         Account createdAccount = accountDao.createAccount(this.account);
         accountDao.deleteAccount(createdAccount.getId());
-        Account accountById = accountDao.getById(createdAccount.getId());
-        assertNull(accountById);
+        accountDao.getById(createdAccount.getId());
     }
 }

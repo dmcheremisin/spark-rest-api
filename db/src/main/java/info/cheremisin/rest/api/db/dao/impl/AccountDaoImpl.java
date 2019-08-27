@@ -1,6 +1,7 @@
 package info.cheremisin.rest.api.db.dao.impl;
 
 import info.cheremisin.rest.api.db.dao.AccountDao;
+import info.cheremisin.rest.api.db.exceptions.AccountNotFoundException;
 import info.cheremisin.rest.api.db.model.PaginationParams;
 import info.cheremisin.rest.api.db.model.impl.Account;
 import org.sql2o.Connection;
@@ -46,7 +47,10 @@ public class AccountDaoImpl implements AccountDao {
             List<Account> accounts = connection.createQuery("SELECT * FROM accounts WHERE id=:id")
                     .addParameter("id", id)
                     .executeAndFetch(Account.class);
-            return accounts.size() > 0 ? accounts.get(0) : null;
+            if(accounts.size() == 0) {
+                throw new AccountNotFoundException(id);
+            }
+            return accounts.get(0);
         }
     }
 

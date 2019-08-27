@@ -1,4 +1,4 @@
-package info.cheremisin.rest.api.db.connection;
+package info.cheremisin.rest.api.db.initialization;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -6,7 +6,11 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.*;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;

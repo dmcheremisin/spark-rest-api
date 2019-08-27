@@ -11,7 +11,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 public class UserDaoImplTest extends BaseDaoTest {
 
@@ -68,7 +67,7 @@ public class UserDaoImplTest extends BaseDaoTest {
         User user = User.builder().firstName(ROB).lastName(STARK).build();
         User createdUser = userDao.createUser(user);
         userDao.deleteUser(createdUser.getId());
-        User deletedUser = userDao.getById(createdUser.getId());
+        userDao.getById(createdUser.getId());
     }
 
 }

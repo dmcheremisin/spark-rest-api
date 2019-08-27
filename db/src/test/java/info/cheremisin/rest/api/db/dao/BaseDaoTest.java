@@ -1,6 +1,6 @@
 package info.cheremisin.rest.api.db.dao;
 
-import info.cheremisin.rest.api.db.connection.DbInitializer;
+import info.cheremisin.rest.api.db.initialization.DbInitializer;
 
 public class BaseDaoTest {
 
