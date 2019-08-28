@@ -2,7 +2,7 @@ package info.cheremisin.rest.api.db.connection;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.Logger;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 
-@Slf4j
 public class ConnectionPool {
+    private final static Logger logger = Logger.getLogger(ConnectionPool.class);
     private static ResourceBundle bundle = ResourceBundle.getBundle("connection");
 
     private static ConnectionPool cp;
@@ -30,6 +30,7 @@ public class ConnectionPool {
         DataSource dataSource = new HikariDataSource(hikariConfig);
         sql2o = new Sql2o(dataSource);
         setDefaultColumnMapping(sql2o);
+        logger.info("Initialized connection pool");
     }
 
     private void setDefaultColumnMapping(Sql2o sql2o) {

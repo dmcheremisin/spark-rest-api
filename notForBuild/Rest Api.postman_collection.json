@@ -390,7 +390,46 @@
 					"raw": "{\n\t\"accountDonor\": \"2\",\n\t\"accountAcceptor\": \"3\",\n\t\"amount\": \"10.10\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/transactions",
+					"raw": "http://ec2-18-224-25-189.us-east-2.compute.amazonaws.com:8080/api/v1/transactions",
+					"protocol": "http",
+					"host": [
+						"ec2-18-224-25-189",
+						"us-east-2",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user accounts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Bran\",\r\n    \"lastName\": \"Stark\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/users/1/accounts",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -399,7 +438,9 @@
 					"path": [
 						"api",
 						"v1",
-						"transactions"
+						"users",
+						"1",
+						"accounts"
 					]
 				}
 			},

@@ -1,6 +1,7 @@
 package info.cheremisin.rest.api.db.initialization;
 
-import lombok.extern.slf4j.Slf4j;
+import info.cheremisin.rest.api.db.connection.ConnectionPool;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URI;
@@ -19,9 +20,8 @@ import java.util.List;
 
 import static info.cheremisin.rest.api.db.connection.ConnectionPool.getSql2o;
 
-
-@Slf4j
 public class DbInitializer {
+    private final static Logger logger = Logger.getLogger(ConnectionPool.class);
 
     public static final String SCHEMA_SQL = "schema.sql";
 
@@ -48,9 +48,9 @@ public class DbInitializer {
             if(fs != null) {
                 fs.close();
             }
-            log.info("All data is initialized successfully");
+            logger.info("All data is initialized successfully");
         } catch (SQLException | URISyntaxException | IOException e) {
-            log.error("Something went wrong");
+            logger.error("Something went wrong with db initialization");
             throw new RuntimeException(e);
         }
     }
@@ -62,7 +62,7 @@ public class DbInitializer {
             lines.forEach(sb::append);
             return sb;
         } catch (IOException e) {
-            log.error("Cant read sql batch");
+            logger.error("Cant read sql batch");
             throw new RuntimeException(e);
         }
     }

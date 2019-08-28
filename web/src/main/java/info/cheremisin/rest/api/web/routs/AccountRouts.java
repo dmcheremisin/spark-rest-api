@@ -8,7 +8,6 @@ import info.cheremisin.rest.api.web.common.RequestParamsExtractor;
 import info.cheremisin.rest.api.web.services.AccountService;
 import info.cheremisin.rest.api.web.services.impl.AccountServiceImpl;
 import info.cheremisin.rest.api.web.transformers.JsonTransformer;
-import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.http.HttpStatus;
 
 import static info.cheremisin.rest.api.web.RestApiApp.API_ROOT_PATH;
@@ -21,7 +20,6 @@ import static spark.Spark.path;
 import static spark.Spark.post;
 import static spark.Spark.put;
 
-@Slf4j
 public class AccountRouts {
 
     private static final JsonTransformer JSON_TRANSFORMER = new JsonTransformer();

@@ -9,7 +9,6 @@ import info.cheremisin.rest.api.web.common.RequestParamsExtractor;
 import info.cheremisin.rest.api.web.services.TransactionService;
 import info.cheremisin.rest.api.web.services.impl.TransactionServiceImpl;
 import info.cheremisin.rest.api.web.transformers.JsonTransformer;
-import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.http.HttpStatus;
 
 import static info.cheremisin.rest.api.web.RestApiApp.API_ROOT_PATH;
@@ -19,7 +18,6 @@ import static spark.Spark.get;
 import static spark.Spark.path;
 import static spark.Spark.post;
 
-@Slf4j
 public class TransactionRouts {
 
     private static final JsonTransformer JSON_TRANSFORMER = new JsonTransformer();
