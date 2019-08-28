@@ -9,7 +9,7 @@ AWS instance for test: http://ec2-18-224-25-189.us-east-2.compute.amazonaws.com:
 Postman Collection: notForBuild/Rest Api.postman_collection.json
 
 ### How to run project?
-1. Build project using maven from the root pom file
+1. Build project using maven from the root pom file: mvn clean package
 2. Go to web/target folder
 3. Execute command: java -jar web-1.0-SNAPSHOT-jar-with-dependencies.jar
 
