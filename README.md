@@ -3,7 +3,7 @@
 Project - Simple rest api for money transfers without Spring
 
 ### AWS for test
-AWS instance for test: http://ec2-18-224-25-189.us-east-2.compute.amazonaws.com:8080
+AWS instance for test: http://ec2-18-224-25-189.us-east-2.compute.amazonaws.com:8080 (stopped)
 
 ### Collection for postman of rest calls
 Postman Collection: notForBuild/Rest Api.postman_collection.json
